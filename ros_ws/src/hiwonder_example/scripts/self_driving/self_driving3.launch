@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="only_line_follow"    default="false"/>
+    <include file="$(find hiwonder_controller)/launch/hiwonder_controller.launch"/>
+    <include file="$(find hiwonder_example)/scripts/self_driving/self_driving_base.launch">
+        <arg name="only_line_follow" value="$(arg only_line_follow)"/>
+    </include>
+    <node pkg="hiwonder_example" type="self_driving_seq.py" name="self_driving" output="screen">
+          <param name="start"               value="true"/>
+          <param name="only_line_follow"    value="$(arg only_line_follow)"/>
+    </node>
+</launch>
+

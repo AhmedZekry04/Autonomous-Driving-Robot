@@ -1,0 +1,6 @@
+<launch>
+
+    <node pkg="laser_scan_navigator" name="laser_scan_navigator" type="laser_scan_navigator.py" output="log">   
+    </node>
+    
+</launch>

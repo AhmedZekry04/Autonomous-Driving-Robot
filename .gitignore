@@ -1,0 +1,26 @@
+# ROS
+build/
+devel/
+install/
+logs/
+.catkin_tools/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db

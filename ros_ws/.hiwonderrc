@@ -1,0 +1,42 @@
+#!/bin/bash
+
+source $HOME/ros_ws/.typerc
+
+export AUDIODRIVER=alsa
+export OPENBLAS_CORETYPE=ARMV8
+
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+
+export CUDA_HOME=/usr/local/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+export LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libgomp.so.1:$LD_PRELOAD
+
+ip=$(ip addr show wlan0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o [0-9].*)
+if [ -z $ip ]; then
+  ip=$(ip addr show eth0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o [0-9].*)
+fi
+
+export HOST_IP=$ip
+export MASTER_IP=$ip
+export ROS_MASTER_URI=http://$MASTER_IP:11311
+export ROS_HOSTNAME=$HOST_IP
+
+echo -e "ROS_HOSTNAME: \033[32m$ROS_HOSTNAME\033[0m"
+echo -e "ROS_MASTER_URI: \033[32m$ROS_MASTER_URI\033[0m"
+
+if [ $ZSH_VERSION ]; then
+  . /opt/ros/melodic/setup.zsh
+  . $HOME/ros_ws/devel/setup.zsh
+elif [ $BASH_VERSION ]; then
+  . /opt/ros_ws/melodic/setup.bash
+  . $HOME/ros_ws/devel/setup.bash
+else
+  . /opt/ros/melodic/setup.sh
+  . $HOME/ros_ws/devel/setup.sh
+fi
+
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:$HOME/third_party/ORB_SLAM3/Examples_old/ROS
+export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:$HOME/third_party/ORB_SLAM2/Examples/ROS

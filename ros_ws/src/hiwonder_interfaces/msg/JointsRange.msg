@@ -1,0 +1,5 @@
+hiwonder_interfaces/JointRange joint1
+hiwonder_interfaces/JointRange joint2
+hiwonder_interfaces/JointRange joint3
+hiwonder_interfaces/JointRange joint4
+hiwonder_interfaces/JointRange joint5

@@ -1,0 +1,4 @@
+hiwonder_interfaces/ColorDetect[] data
+---
+bool success
+string message

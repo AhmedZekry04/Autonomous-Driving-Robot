@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="only_line_follow"    default="false"/>
+    <!-- Camera is always already running — do not relaunch it here -->
+    <!-- <include file="$(find hiwonder_peripherals)/launch/depth_cam.launch"/> -->
+
+    <arg name="node_name" default="yolov5" />
+    <rosparam param="/$(arg node_name)/classes">['go', 'right', 'park', 'red', 'green', 'crosswalk']</rosparam>
+    <rosparam file="$(find hiwonder_example)/config/yolov5_bridge.yaml"   command="load"/>
+    <node unless="$(arg only_line_follow)" pkg="hiwonder_example" type="yolov5_node.py" name="$(arg node_name)" output="screen">
+        <param name="use_depth_cam" value="true"/>
+        <param name="engine"        value="traffic_signs_640s_7_0.engine"/>
+        <param name="lib"           value="libmyplugins_640.so"/>
+        <param name="conf_thresh"   value="0.8"/>
+    </node>
+</launch>
+

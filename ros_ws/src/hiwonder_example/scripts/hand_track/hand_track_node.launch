@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--手部跟踪-->
+<launch>
+    <!--底盘驱动(chassis driver)-->
+    <include file="$(find hiwonder_controller)/launch/hiwonder_controller.launch"/>
+    <include file="$(find hiwonder_peripherals)/launch/depth_cam.launch">
+         <arg name="enable_depth"    value="false"/>
+    </include>
+    <node pkg="hiwonder_example" type="hand_detect_node.py" name="hand_detect" output="screen"/>
+    <node pkg="hiwonder_example" type="hand_track_node.py" name="hand_track" output="screen"/>
+</launch>

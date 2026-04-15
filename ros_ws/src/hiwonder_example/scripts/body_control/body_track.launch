@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!--人体跟踪-->
+<launch>
+    <!--底盘驱动(chassis driver)-->
+    <include file="$(find hiwonder_controller)/launch/hiwonder_controller.launch"/>
+    <include file="$(find hiwonder_example)/scripts/bodt_control/body_track_base.launch"/>
+    <node pkg="hiwonder_example" type="body_track.py" name="body_track" output="screen"/>
+</launch>

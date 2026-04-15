@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="hiwonder" xmlns:xacro="http://ros.org/wiki/xacro">
+    <xacro:include filename="$(find hiwonder_description)/urdf/jetacker.xacro"/>
+    <xacro:include filename="$(find hiwonder_description)/urdf/imu.gazebo.xacro"/>
+    <xacro:include filename="$(find hiwonder_description)/urdf/lidar.gazebo.xacro"/>
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so" />
+        <plugin name="gazebo_controller" filename="libgazebo_ros_planar_move.so">
+            <commandTopic>hiwonder_controller/cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>$(arg odom_frame)</odometryFrame>
+            <odometryRate>20.0</odometryRate>
+            <robotBaseFrame>$(arg base_frame)</robotBaseFrame>
+        </plugin>
+    </gazebo>
+
+    <xacro:macro name="model_color" params="link_name color_name">
+        <gazebo reference="${link_name}">
+            <material>Gazebo/${color_name}</material>
+            <turnGravityOff>false</turnGravityOff>
+        </gazebo>
+    </xacro:macro>
+
+    <xacro:model_color link_name="base_link"                color_name="black"/>
+    <xacro:model_color link_name="lidar_link"               color_name="black"/>
+    <xacro:model_color link_name="back_shell_link"          color_name="green"/>
+    <xacro:model_color link_name="depth_cam_link"           color_name="black"/>
+    <xacro:model_color link_name="link1"                    color_name="black"/>
+    <xacro:model_color link_name="wheel_right_front"        color_name="black"/>
+    <xacro:model_color link_name="wheel_right_back"         color_name="black"/>
+    <xacro:model_color link_name="wheel_left_front"         color_name="black"/>
+    <xacro:model_color link_name="wheel_left_back"          color_name="black"/>
+
+    <!-- Transmission macro -->
+    <xacro:macro name="SimpleTransmissionPosition" params="joint">
+        <transmission name="tran_${joint}">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint}">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${joint}_motor">
+                <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <xacro:SimpleTransmissionPosition joint="joint1" />
+</robot>

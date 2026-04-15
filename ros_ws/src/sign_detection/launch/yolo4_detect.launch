@@ -1,0 +1,11 @@
+<launch>
+    <!-- Camera -->
+    <!--include file="$(find hiwonder_peripherals)/launch/depth_cam.launch"/-->
+
+    <!-- YOLOv4-tiny Darknet sign detector (GPU-accelerated) -->
+    <node pkg="sign_detection" name="yolov4_sign_detector" type="yolov4_darknet_detector.py" output="screen">
+        <param name="cfg"         value="$(find sign_detection)/weights/yolov4-tiny-custom-traffic-2.cfg"/>
+        <param name="weights"     value="$(find sign_detection)/weights/yolov4-tiny-custom-traffic_last-3.weights"/>
+        <param name="image_topic" value="/robot_1/depth_cam/rgb/image_raw"/>
+    </node>
+</launch>

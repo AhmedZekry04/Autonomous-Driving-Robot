@@ -1,0 +1,7 @@
+<launch>
+  <node pkg="lab_2" type="project.py" name="traffic_sign_detection" output="screen">
+    <param name="model_path" value="/home/hiwonder/ros_ws/src/yolo/best.py"/>
+    <param name="image_topic" value="/camera/color/image_raw"/>
+    <param name="fps" value="2"/>
+  </node>
+</launch>
